@@ -11,9 +11,7 @@
 				"overview": {
 					"title": "Overview",
 					"transformation": {},
-					"display": {
-						"component": "table"
-					}
+					"display": {}
 				}
 			}
 		}
