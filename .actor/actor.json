@@ -24,7 +24,7 @@
 								"label": "Start at",
 								"format": "date"
 							},
-							"Finish_at": {
+							"finish_at": {
 								"label": "Finish at",
 								"format": "date"
 							},
