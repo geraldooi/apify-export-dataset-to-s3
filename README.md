@@ -1,5 +1,9 @@
-## Export Dataset to S3
+<div align="center">
 
+# Export Dataset to S3
+![Export Dataset to S3 Logo](docs/logo.jpeg)
+
+</div>
 This is an Apify actor to export dataset of another actor to S3 bucket.
 
 The API endpoints of this actor can integrate to webhook of another actor that trigger on `Run succeeded`.
