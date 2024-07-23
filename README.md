@@ -2,7 +2,7 @@
 
 This is an Apify actor to export dataset of another actor to S3 bucket.
 
-The API endpoints of this actor can integrate to webhook of another actor. It work best with `ACTOR.RUN.SUCCEEDED`.
+The API endpoints of this actor can integrate to webhook of another actor that trigger on `Run succeeded`.
 
 There is another [actor](https://apify.com/drinksight/save-to-s3) in the store already, you may want to have a look with it. Maybe it work best to your use case.
 
@@ -30,9 +30,17 @@ Example policy (to be attached the IAM user):
 }
 ```
 
+### Create access key
+Once you create IAM user, create access key.
+![Create Access key](docs/create-access-key.png)
 
 ### Create Task
-Create a new task and give it a name. Fill in the properties below.
+1. Create a new task.
+![Create task from Apify actor](docs/create-task-1.png)  
+> ⚠️ You need to fill in properties especially AWS Access Key ID and AWS Secret Access Key to create new task.
+
+2. Change the Title according to your preference.
+![Fill in Title on creating new task](docs/create-task-2.png)
 
 Properties:
 | Property                | Description                                                                                  |
@@ -49,7 +57,17 @@ Properties:
 | `gzip_compression`      | Whether to compress the exported data. By default `gzip_compression=true`                    |
 
 
-### Create the webhook
-From the API button, copy the API endpoint.
+### Copy Webhook link
+1. Once you create a new task. You can get API endpoint from the API button from top right.
+![Actor task page](docs/copy-webhook-link-1.png)
 
-Go the the Actor/Actor Task, click on intergration tab. Seach for webhook. Add the API endpoint just now and set the event types to be `ACTOR.RUN.SUCCEEDED`.
+2. Copy **Run Task** URL.
+![Actor task's API endpoints page](docs/copy-webhook-link-2.png)
+
+
+### Create webhook integration
+1. Go the the Actor/Actor Task (Google Maps Scraper in this example), click on intergration tab. Seach for webhook. 
+![Google Maps Scraper actor page](docs/create-webhook-1.png)
+
+2. Add the API endpoint copied to URL and set the event types to be `Run succeeded`. Leave the Payload template as it is.
+![Webhook configuration page](docs/create-webhook-2.png)
