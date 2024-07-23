@@ -15,9 +15,10 @@ from httpx import AsyncClient
 # Apify SDK - toolkit for building Apify Actors, read more at https://docs.apify.com/sdk/python
 from apify import Actor
 
-from urllib.parse import parse_qsl, urlencode, urlparse, urlunparse
+from datetime import datetime
 from string import Formatter
 from _string import formatter_field_name_split # type: ignore
+from urllib.parse import parse_qsl, urlencode, urlparse, urlunparse
 
 
 class MyFormatter(Formatter):
@@ -60,6 +61,8 @@ def upload_to_s3(aws_access_key_id, aws_secret_access_key, bucket, key, data, gz
 
 async def main() -> None:
     async with Actor:
+        start_at = datetime.now()
+
         # Get the input from previous actor
         actor_input = await Actor.get_input() or {}
 
@@ -90,5 +93,7 @@ async def main() -> None:
 
         # APIFY Output schema
         await Actor.push_data({
+            "start_at": start_at.isoformat(),
+            "finish_at": datetime.now().isoformat(),
             "s3_path": f"s3://{bucket}/{key}{'.gz' if gzip_compression else ''}"
         })

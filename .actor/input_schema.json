@@ -60,6 +60,7 @@
             "description": "Number of items that should be skipped at the start. The default value is `0`.",
             "editor": "number",
             "default": 0,
+            "prefill": 0,
             "minimum": 0
         },
         "limit": {
