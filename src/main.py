@@ -87,3 +87,8 @@ async def main() -> None:
         
         # Upload dataset to S3
         upload_to_s3(aws_access_key_id, aws_secret_access_key, bucket, key, response.content, gzip_compression)
+
+        # APIFY Output schema
+        await Actor.push_data({
+            "s3_path": f"s3://{bucket}/{key}{'.gz' if gzip_compression else ''}"
+        })

@@ -4,6 +4,20 @@
 	"title": "Export dataset from Actor to S3 bucket in Python",
 	"description": "This actor will be use as integration to the scraping actor. It automate export dataset and gzip it, after that transfer the file to S3 bucket.",
 	"version": "0.1",
+	"storages": {
+		"dataset": {
+			"actorSpecification": 1,
+			"views": {
+				"overview": {
+					"title": "Overview",
+					"transformation": {},
+					"display": {
+						"component": "table"
+					}
+				}
+			}
+		}
+	},
 	"meta": {
 		"templateId": "python-start"
 	},
