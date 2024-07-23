@@ -10,8 +10,30 @@
 			"views": {
 				"overview": {
 					"title": "Overview",
-					"transformation": {},
-					"display": {}
+					"transformation": {
+						"fields": [
+							"start_at",
+							"finish_at",
+							"s3_path"
+						]
+					},
+					"display": {
+						"component": "table",
+						"properties": {
+							"start_at": {
+								"label": "Start at",
+								"format": "date"
+							},
+							"Finish_at": {
+								"label": "Finish at",
+								"format": "date"
+							},
+							"s3_path": {
+								"label": "S3 Path",
+								"format": "text"
+							}
+						}
+					}
 				}
 			}
 		}
