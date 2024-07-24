@@ -77,6 +77,5 @@
             "editor": "checkbox",
             "default": true
         }
-    },
-    "required": ["aws_access_key_id", "aws_secret_access_key", "aws_region", "aws_bucket", "aws_object_key_format"]
+    }
 }
