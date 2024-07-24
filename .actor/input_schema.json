@@ -8,14 +8,14 @@
             "type": "string",
             "description": "Enter the access key id for your AWS account.",
             "editor": "textfield",
-            "isSecret": true
+            "prefill": ""
         },
         "aws_secret_access_key": {
             "title": "AWS Secret Access Key",
             "type": "string",
             "description": "Enter the secret access key for your AWS account.",
             "editor": "textfield",
-            "isSecret": true
+            "prefill": ""
         },
         "aws_region": {
             "title": "AWS Region",
