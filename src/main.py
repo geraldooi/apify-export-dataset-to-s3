@@ -68,32 +68,38 @@ async def main() -> None:
 
         # Formatter will be use to substitube the AWS object key format
         fmt = MyFormatter()
-        
-        # These variables will be use for the rest of program
-        dataset_id = actor_input['resource']['defaultDatasetId']
-        format = actor_input['format']
-        clean = actor_input['clean']
-        aws_access_key_id = actor_input['aws_access_key_id']
-        aws_secret_access_key = actor_input['aws_secret_access_key']
-        bucket = actor_input['aws_bucket']
-        key = fmt.format(actor_input['aws_object_key_format'], **actor_input)
-        gzip_compression = actor_input['gzip_compression']
-    
-        # Get dataset from APIFY
-        url = get_dataset_url(dataset_id=dataset_id, format=format, clean=clean)
-        Actor.log.info(f"Get dataset from {url}")
 
-        # Create an asynchronous HTTPX client
-        # Download the dataset
-        async with AsyncClient() as client:
-            response = await client.get(url)
+        # Check if it is calling from webhook intergration
+        # if calling from webhook, there will be resource available
+        if 'resource' in actor_input and actor_input['aws_access_key_id'] != '' and actor_input['aws_secret_access_key'] != '':
+            # These variables will be use for the rest of program
+            dataset_id = actor_input['resource']['defaultDatasetId']
+            format = actor_input['format']
+            clean = actor_input['clean']
+            aws_access_key_id = actor_input['aws_access_key_id']
+            aws_secret_access_key = actor_input['aws_secret_access_key']
+            bucket = actor_input['aws_bucket']
+            key = fmt.format(actor_input['aws_object_key_format'], **actor_input)
+            gzip_compression = actor_input['gzip_compression']
+            result = f"s3://{bucket}/{key}{'.gz' if gzip_compression else ''}"
         
-        # Upload dataset to S3
-        upload_to_s3(aws_access_key_id, aws_secret_access_key, bucket, key, response.content, gzip_compression)
+            # Get dataset from APIFY
+            url = get_dataset_url(dataset_id=dataset_id, format=format, clean=clean)
+            Actor.log.info(f"Get dataset from {url}")
+
+            # Create an asynchronous HTTPX client
+            # Download the dataset
+            async with AsyncClient() as client:
+                response = await client.get(url)
+            
+            # Upload dataset to S3
+            upload_to_s3(aws_access_key_id, aws_secret_access_key, bucket, key, response.content, gzip_compression)
+        else:
+            result = "Not integrate to webhook or empty aws access and secret key."
 
         # APIFY Output schema
         await Actor.push_data({
             "start_at": start_at.isoformat(),
             "finish_at": datetime.now().isoformat(),
-            "s3_path": f"s3://{bucket}/{key}{'.gz' if gzip_compression else ''}"
+            "result": result
         })

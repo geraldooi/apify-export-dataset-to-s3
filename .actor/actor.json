@@ -14,7 +14,7 @@
 						"fields": [
 							"start_at",
 							"finish_at",
-							"s3_path"
+							"result"
 						]
 					},
 					"display": {
@@ -28,8 +28,8 @@
 								"label": "Finish at",
 								"format": "date"
 							},
-							"s3_path": {
-								"label": "S3 Path",
+							"result": {
+								"label": "Result",
 								"format": "text"
 							}
 						}
